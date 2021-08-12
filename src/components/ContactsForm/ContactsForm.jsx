@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import 'yup-phone';
-import * as actions from 'redux/contacts/contacts-actions';
+import { actions } from 'redux/contacts';
 import {
   FormContainer,
   Button,

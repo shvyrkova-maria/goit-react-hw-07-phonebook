@@ -2,8 +2,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import { DebounceInput } from 'react-debounce-input';
-import * as actions from 'redux/contacts/contacts-actions';
-import { getFilterValue } from 'redux/contacts/contacts-selectors';
+import { actions } from 'redux/contacts';
+import { getFilterValue } from 'redux/contacts/contactsSelectors';
 
 function Filter() {
   const filter = useSelector(getFilterValue);

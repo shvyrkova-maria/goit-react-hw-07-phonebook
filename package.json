@@ -9,7 +9,9 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.1",
     "formik": "^2.2.9",
+    "json-server": "^0.16.3",
     "modern-normalize": "^1.1.0",
     "nanoid": "^3.1.23",
     "prop-types": "^15.7.2",
@@ -21,7 +23,6 @@
     "react-scripts": "4.0.3",
     "redux": "^4.1.1",
     "redux-logger": "^3.0.6",
-    "redux-persist": "^6.0.0",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.9",
     "yup-phone": "^1.2.19"
@@ -58,7 +59,7 @@
     "prettier": "^2.3.2"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.{js, jsx}": "eslint --cache --fix",
+    "*.{js,jsx,css,md}": "prettier --write"
   }
 }

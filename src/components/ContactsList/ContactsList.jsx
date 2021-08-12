@@ -1,8 +1,11 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FaUser, FaPhoneAlt } from 'react-icons/fa';
-import * as actions from 'redux/contacts/contacts-actions';
-import { getFiltredContactsList } from 'redux/contacts/contacts-selectors';
+import { actions } from 'redux/contacts';
+import { getFiltredContactsList } from 'redux/contacts/contactsSelectors';
+import { fetchContacts } from 'redux/contacts';
+
 import {
   Contacts,
   ContactsItem,
@@ -13,6 +16,10 @@ import {
 function ContactsList() {
   const contacts = useSelector(getFiltredContactsList);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <Contacts>
