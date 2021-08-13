@@ -4,8 +4,6 @@ import { actions, fetchContacts } from 'redux/contacts';
 
 const contacts = createReducer([], {
   [fetchContacts.fulfilled]: (_, { payload }) => payload,
-  // [fetchContacts.pending]: (_, { payload }) => payload,
-  // [fetchContacts.rejected]: (_, { payload }) => payload,
 
   [actions.addContact]: (state, { payload }) =>
     state.some(({ name }) => name === payload.name)
@@ -55,3 +53,6 @@ export default combineReducers({
 // export const { addContact, deleteContact, getFilterValue } = contactsSlice.actions;
 
 // export default contactsSlice.reducer;
+
+// [fetchContacts.pending]: (_, { payload }) => payload,
+// [fetchContacts.rejected]: (_, { payload }) => payload,

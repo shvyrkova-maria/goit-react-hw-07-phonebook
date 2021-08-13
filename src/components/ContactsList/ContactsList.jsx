@@ -15,6 +15,7 @@ import {
 
 function ContactsList() {
   const contacts = useSelector(getFiltredContactsList);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
