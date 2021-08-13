@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import { FaUser, FaPhoneAlt } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import { getFilterValue } from 'redux/contacts/contactsSelectors';
 
 import {
   Contacts,
@@ -12,9 +14,23 @@ import {
   useDeleteContactMutation,
 } from 'services/contactApi';
 
+const filteredContacts = (filterValue, contacts) => {
+  const normalizeFilter = filterValue.toLowerCase();
+  return contacts?.filter(
+    ({ name, number }) =>
+      name.toLowerCase().includes(normalizeFilter) ||
+      number.includes(normalizeFilter),
+  );
+};
+
 function ContactsList() {
-  const { data: contacts, isFetching } = useFetchContactsQuery(null, {
+  const filter = useSelector(getFilterValue);
+
+  const { contacts, isFetching } = useFetchContactsQuery(null, {
     refetchOnReconnect: true,
+    selectFromResult: ({ data }) => ({
+      contacts: filteredContacts(filter, data),
+    }),
   });
 
   const [deleteContact] = useDeleteContactMutation();
