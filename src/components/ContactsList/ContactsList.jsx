@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { FaUser, FaPhoneAlt } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { getFilterValue } from 'redux/contacts/contactsSelectors';
-
+import toast from 'react-hot-toast';
 import {
   Contacts,
   ContactsItem,
@@ -14,17 +14,19 @@ import {
   useDeleteContactMutation,
 } from 'services/contactApi';
 
-const filteredContacts = (filterValue, contacts) => {
-  const normalizeFilter = filterValue.toLowerCase();
-  return contacts?.filter(
-    ({ name, number }) =>
-      name.toLowerCase().includes(normalizeFilter) ||
-      number.includes(normalizeFilter),
-  );
-};
-
 function ContactsList() {
   const filter = useSelector(getFilterValue);
+
+  const filteredContacts = (filterValue, contacts) => {
+    const normalizeFilter = filterValue.toLowerCase();
+    return contacts
+      ?.filter(
+        ({ name, number }) =>
+          name.toLowerCase().includes(normalizeFilter) ||
+          number.includes(normalizeFilter),
+      )
+      .sort((a, b) => a.name.localeCompare(b.name));
+  };
 
   const { contacts, isFetching } = useFetchContactsQuery(null, {
     refetchOnReconnect: true,
@@ -35,11 +37,12 @@ function ContactsList() {
 
   const [deleteContact] = useDeleteContactMutation();
 
-  const handleDeleteContactOnClick = async id => {
+  const handleDeleteContactOnClick = async (id, name) => {
     try {
       await deleteContact(id);
+      toast.success(`Contact ${name} deleted`);
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
 
@@ -53,7 +56,9 @@ function ContactsList() {
               <div>
                 <ContactsDetails>
                   <FaUser size={14} />
-                  <span>{name}</span>
+                  <span>
+                    <b>{name}</b>
+                  </span>
                 </ContactsDetails>
                 <ContactsDetails>
                   <FaPhoneAlt size={14} />
@@ -62,7 +67,7 @@ function ContactsList() {
               </div>
               <Button
                 type="button"
-                onClick={() => handleDeleteContactOnClick(id)}
+                onClick={() => handleDeleteContactOnClick(id, name)}
               >
                 Delete
               </Button>

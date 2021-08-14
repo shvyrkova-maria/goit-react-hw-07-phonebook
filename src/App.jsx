@@ -3,6 +3,7 @@ import ContactsForm from 'components/ContactsForm/ContactsForm';
 import ContactsList from 'components/ContactsList/ContactsList';
 import Filter from 'components/Filter/Filter';
 import Container from 'components/Container/Container';
+import Toast from 'components/Toast/Toast.jsx';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Filter />
         <ContactsList />
       </Section>
+      <Toast />
     </Container>
   );
 }

@@ -2,7 +2,8 @@ import { nanoid } from 'nanoid';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import 'yup-phone';
-import { useAddContactMutation } from 'services/contactApi';
+import toast from 'react-hot-toast';
+import { useAddContactMutation, contactApi } from 'services/contactApi';
 import {
   FormContainer,
   Button,
@@ -19,13 +20,20 @@ const validationSchema = Yup.object().shape({
 });
 
 function ContactsForm() {
+  const { data } = contactApi.endpoints.fetchContacts.useQueryState(null, {});
   const [addContact] = useAddContactMutation();
 
   const handleAddContactOnSubmit = async newContact => {
+    if (data?.some(({ name }) => name === newContact.name)) {
+      toast.error(`Contact ${newContact.name} already exists`);
+      return;
+    }
+
     try {
-      addContact(newContact);
+      await addContact(newContact);
+      toast.success(`Contact ${newContact.name} created`);
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
 
