@@ -37,20 +37,3 @@ export const {
   useAddContactMutation,
   useDeleteContactMutation,
 } = contactApi;
-
-// async function onCacheEntryAdded(
-//   arg: QueryArg,
-//   {
-//     dispatch,
-//     getState,
-//     extra,
-//     requestId,
-//     cacheEntryRemoved,
-//     cacheDataLoaded,
-//     getCacheEntry,
-//   }: MutationCacheLifecycleApi
-// ): Promise<void>
-
-// state.some(({ name }) => name === payload.name)
-//   ? alert(`Contact ${payload.name} already exists`)
-//   : [payload, ...state],
